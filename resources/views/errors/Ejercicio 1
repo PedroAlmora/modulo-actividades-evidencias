@@ -1,0 +1,43 @@
+public class Proceso implement IComparable{
+	
+	public int CompareTo(Proceso p){
+		if(tiempo > p.gettiempo()){
+			return 1;
+		}
+		else if(tiempo < p.gettiempo()){
+			return -1;
+		}
+		else{
+			return 0;
+		}
+	};
+	
+	public void ejecutarProcesos(){
+		
+		////Creo el objeto de tipo cola con prioridad/////////
+		ColaPrioridad<Proceso> cola = new ColaPrioridad<>();
+		
+		//////LLeno la cola con los procesos que si tiempo de ejecucion es mayor que 0//////////////
+		for( int i=0; i<procesos.longitud(); i++){
+			if(procesos.obtener(i).gettiempo()>0){
+				cola.Adicionar(procesos.obtener(i));
+			}
+			
+		}
+		//////Realizo la logica del ejercicio//////
+		while(!cola.EsVacia()){
+			
+			////Extraigo el primero proceso de la cola/////////////
+			proceso p = cola.Extraer();
+			
+			///Ejecuto el metodo ejecutar que se va a encargar de actualizar el tiempo del proceso pasado por parametro que en este caso seria p//////////
+			ejecutar(p);
+			
+			///Compruebo si luego de actualizar su tiempo todavia sigue siendo mayor que 0 para volverlo adicionar a la cola////
+			if(p.gettiempo()>0){
+				cola.Adicionar(p);
+			}
+		}
+		
+	};
+}
